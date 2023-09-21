@@ -5,7 +5,6 @@ const { createApp } = Vue
     data() {
       return {
         eventos: [],
-        message: 'Hello Vue!',
         arraycategorias: [],
         inputSearch:"",
         filtrados:[],

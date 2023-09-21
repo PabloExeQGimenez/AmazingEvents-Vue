@@ -22,20 +22,31 @@ const { createApp } = Vue
     .then(response =>{
         return response.json()})
     .then(dataEventos => {
+       
         const setcategorias = new Set(dataEventos.events.map(item => item.category))
         this.arraycategorias = Array.from(setcategorias)
         this.eventos = dataEventos.events 
-        this.filtrados = this.eventos
-        console.log(this.filtrados)
 
         this.eventosPasados = this.filterEventspast(this.eventos)
         console.log(this.eventosPasados)
+        this.filtrados = this.eventosPasados
+        console.log(this.filtrados)
+
+        
     })
     
     .catch(err => console.log(err))
     },
 
     methods:{
+        filterEventspast (listaEventos){
+            let aux = []
+            for (let evento of listaEventos){
+                if (evento.date.startsWith("2022") || evento.date.startsWith("2021") || evento.date.startsWith("2019")==true){
+                aux.push(evento)
+            }
+           } return aux
+        }, 
 
         buscar(eventos, inputSearch){
             return eventos.filter(evento => evento.name.toLowerCase().includes(inputSearch))
@@ -44,7 +55,7 @@ const { createApp } = Vue
 
         filtrarChecks (eventos, checkeados){
             if (checkeados.length == 0){
-                return eventos
+                return eventosPasados
             }
             
             return eventos.filter(evento => checkeados.includes(evento.category))
@@ -56,16 +67,9 @@ const { createApp } = Vue
             const filtradosPorBuscar = this.buscar(this.eventosPasados, this.inputSearch)
             const filtradosPorChecks = this.filtrarChecks(filtradosPorBuscar, this.checkeados)
             this.filtrados = filtradosPorChecks
-        },
+        }
 
-        filterEventspast (listaEventos){
-            let aux = []
-            for (let evento of listaEventos){
-                if (evento.date.startsWith("2022") || evento.date.startsWith("2021") || evento.date.startsWith("2019")==true){
-                aux.push(evento)
-            }
-           } return aux
-        } 
+        
 
 
     }

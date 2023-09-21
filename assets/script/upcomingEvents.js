@@ -24,15 +24,24 @@ const { createApp } = Vue
         const setcategorias = new Set(dataEventos.events.map(item => item.category))
         this.arraycategorias = Array.from(setcategorias)
         this.eventos = dataEventos.events 
-        this.filtrados = this.eventos
-
         this.eventosFuturos = this.filterEvents(this.eventos)
+        this.filtrados = this.eventosFuturos
+
+        
     })
     
     .catch(err => console.log(err))
     },
 
     methods:{
+        filterEvents (listaEventos){
+            let aux = []
+            for (let evento of listaEventos){
+                if (evento.date.startsWith("2023") || evento.date.startsWith("2024")==true){
+                aux.push(evento)
+            }
+           } return aux
+        },
 
         buscar(eventos, inputSearch){
             return eventos.filter(evento => evento.name.toLowerCase().includes(inputSearch))
@@ -53,16 +62,9 @@ const { createApp } = Vue
             const filtradosPorBuscar = this.buscar(this.eventosFuturos, this.inputSearch)
             const filtradosPorChecks = this.filtrarChecks(filtradosPorBuscar, this.checkeados)
             this.filtrados = filtradosPorChecks
-        },
+        }
 
-        filterEvents (listaEventos){
-            let aux = []
-            for (let evento of listaEventos){
-                if (evento.date.startsWith("2023") || evento.date.startsWith("2024")==true){
-                aux.push(evento)
-            }
-           } return aux
-        } 
+        
 
 
     }
