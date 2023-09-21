@@ -13,7 +13,7 @@
 </head>
 
 <body>
-
+	<div id="app">
 	<header>
 		<div class="contenedor-header justify-content-between">
 
@@ -94,9 +94,9 @@
 						<td>Events with larger capacity</td>
 					</tr>
 					<tr>
-						<td id="mayorPorcentajeId"></td>
-						<td id="menorPorcentajeId"></td>
-						<td id="mayorCapacidadId"></td>
+						<td id="mayorPorcentajeId">{{nombreMayorAsistencia}}: {{porcentajeMayorAsistencia}}%</td>
+						<td id="menorPorcentajeId">{{nombreMenorAsistencia}}: {{porcentajeMenorAsistencia}}%</td>
+						<td id="mayorCapacidadId">{{nombreMayorCapacidad}}: {{mayorCapacidad}}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -108,6 +108,16 @@
 					</tr>
 				</thead>
 				<tbody id="tabla2Id" class="text-center">
+					<tr>
+						<td>Categories</td>
+						<td>Revenues</td>
+						<td>Percentage of assistance</td>
+					  </tr>
+					  <tr v-for="dato of tablaDatos">
+						<td>{{ dato.item }}</td>
+						<td>${{ dato.ganancia }}</td>
+						<td>{{ dato.porcentaje }}%</td>
+					  </tr>
 				</tbody>
 			</table>
 			<table class="table table-bordered">
@@ -117,7 +127,16 @@
 					</tr>
 				</thead>
 				<tbody id="tabla3Id" class="text-center">
-
+					<tr>
+						<td>Categories</td>
+						<td>Revenues</td>
+						<td>Percentage of assistance</td>
+					  </tr>
+					  <tr v-for="datos of tablaDatosPasados">
+						<td>{{ datos.item }}</td>
+						<td>${{ datos.ganancia }}</td>
+						<td>{{ datos.porcentaje }}%</td>
+					  </tr>
 				</tbody>
 			</table>
 
@@ -141,10 +160,12 @@
 			</div>
 		</div>
 	</footer>
+	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
 		</script>
-	<script type="module" src="../script/stats.js"></script>
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+	<script src="../script/stats.js"></script>
 </body>
 
 </html>

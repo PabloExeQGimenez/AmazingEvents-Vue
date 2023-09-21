@@ -12,112 +12,147 @@
 </head>
 
 <body>
-	<header>
-		<div class="contenedor-header justify-content-between">
-			<nav class="navbar navbar-expand-sm navbar-dark miheader bg-transparent p-3 ">
-				<div class="container  ">
-					<a class="navbar-brand" href="#"><img src="./assets/images/amazing_brand.png"
-							alt="Amazing Brand"></a>
-					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-						aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse " id="navbarNav">
-						<ul class="navbar-nav ms-auto">
-							<li class="nav-item">
-								<a class="nav-link active" aria-current="page" href="#">Home</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link active" aria-current="page"
-									href="./assets/pages/upcomingEvents.html">Upcoming
-									Events</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link active" aria-current="page"
-									href="./assets/pages/pastEvents.html">Past Events</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link active" aria-current="page"
-									href="./assets/pages/contact.html">Contacts</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link active" aria-current="page"
-									href="./assets/pages/stats.html">Stats</a>
-							</li>
-						</ul>
-						<hr class="text-white-50">
+	<div id="app">
+
+		<header>
+			<div class="contenedor-header justify-content-between">
+				<nav class="navbar navbar-expand-sm navbar-dark miheader bg-transparent p-3 ">
+					<div class="container  ">
+						<a class="navbar-brand" href="#"><img src="./assets/images/amazing_brand.png"
+								alt="Amazing Brand"></a>
+						<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+							data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+							aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="collapse navbar-collapse " id="navbarNav">
+							<ul class="navbar-nav ms-auto">
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page" href="#">Home</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page"
+										href="./assets/pages/upcomingEvents.html">Upcoming
+										Events</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page"
+										href="./assets/pages/pastEvents.html">Past Events</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page"
+										href="./assets/pages/contact.html">Contacts</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page"
+										href="./assets/pages/stats.html">Stats</a>
+								</li>
+							</ul>
+							<hr class="text-white-50">
+						</div>
+					</div>
+				</nav>
+			</div>
+		</header>
+		<main>
+			<div id="carouselExampleSlidesOnly" class="carousel slide carrusel " data-bs-ride="carousel">
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<img src="./assets/images/optional_banner_5.jpg" class="d-block w-100" alt="micro">
+					</div>
+					<div class="carousel-item">
+						<img src="./assets/images/optional_banner_2.jpg" class="d-block w-100" alt="cinema">
+					</div>
+					<div class="carousel-item">
+						<img src="./assets/images/optional_banner_3.jpg" class="d-block w-100" alt="theater">
 					</div>
 				</div>
-			</nav>
-		</div>
-	</header>
-	<main>
-		<div id="carouselExampleSlidesOnly" class="carousel slide carrusel " data-bs-ride="carousel">
-			<div class="carousel-inner">
-				<div class="carousel-item active">
-					<img src="./assets/images/optional_banner_5.jpg" class="d-block w-100" alt="micro">
-				</div>
-				<div class="carousel-item">
-					<img src="./assets/images/optional_banner_2.jpg" class="d-block w-100" alt="cinema">
-				</div>
-				<div class="carousel-item">
-					<img src="./assets/images/optional_banner_3.jpg" class="d-block w-100" alt="theater">
-				</div>
 			</div>
-		</div>
-		<div class="titulo">
-			<h1 id="titulo">AMAZING EVENTS</h1>
-		</div>
-		<!--Checksss-->
-		<div class="container-check">
-			<div class="box1" id="contenedorcategorias">
+			<div class="titulo">
+				<h1 id="titulo">AMAZING EVENTS</h1>
+			</div>
 
+
+
+			<!--Checksss-->
+			<div class="container-check border ">
+				<div class="box " v-for:="categoria of arraycategorias">
+					<div class="cajita">
+						<div class="form-check">
+
+							<input class="form-check-input" type="checkbox" :value="categoria" @change="filtrosCruzados"
+								:id="`${categoria}`" v-model="checkeados" />{{categoria}}
+							<label class="form-check-label" :for="`${categoria}`">
+
+						</div>
+					</div>
+				</div>
+				<div class="box">
+					<form class="d-flex" role="search">
+						<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+							id="buscador" v-model="inputSearch">
+						<button class="btn btn-light btn-outline-success" type="button" id="btnbuscador"
+							v-on:click="filtrosCruzados">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+								class="bi bi-search buscador" viewBox="0 0 16 16">
+								<path
+									d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+							</svg>
+						</button>
+					</form>
+				</div>
 			</div>
-			<div class="box2">
-				<form class="d-flex" role="search">
-					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-						id="buscador">
-					<button class="btn btn-light btn-outline-success" type="button" id="btnbuscador">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-							class="bi bi-search buscador" viewBox="0 0 16 16">
-							<path
-								d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-						</svg>
-					</button>
-				</form>
-			</div>
-		</div>
-		<!--card -->
-		<!-- <div id="resultados" class="d-flex justify-content-evenly align-items-center py-4">
+			<!--card -->
+			<!-- <div id="resultados" class="d-flex justify-content-evenly align-items-center py-4">
 
 		</div> -->
-		<div class="acomodador container d-flex align-items-center justify-content-center text-center w-100">
-			<div class="container d-flex flex-column ">
-				<div class="row mt-5 mx-auto" id="contenedorCartas">
+			<div class="acomodador border container d-flex align-items-center justify-content-center text-center w-100">
+				<div class="container d-flex flex-column ">
+					<div class="row mt-5 mx-auto" id="contenedorCartas">
+						<div class="card h-100 mx-auto" v-if="filtrados.length > 0" v-for="evento of filtrados">
+							<img :src="evento.image" class="card-img-top img-fluid" :alt="evento.name">
+							<div class="card-body">
+								<h5 class="card-title text-center">{{evento.name}}</h5>
+								<p class="card-text text-center">{{evento.description}}</p>
+								<hr>
+								<div class=" d-flex justify-content-evenly">
+									<p class="card-text precio">$ {{evento.price}}</p>
+									<p class="card-text ancor"><a class="ancor"
+											:href="'./assets/pages/details.html?parametro=' + evento._id">Details</a>
+									</p>
+								</div>
+							</div>
+
+						</div>
+						<h3 v-else>No event matches, please try again</h3>
+					</div>
+				</div>
+
+			</div>
+		</main>
+		<footer class="d-flex justify-content-evenly align-items-center py-4 bg-dark">
+			<div class="container-fluid  foot">
+				<ul class="nav col justify-content-start list-unstyled d-flex ">
+					<li class="ms-3"><a class="text-body-secondary" href="#"><img src="./assets/images/facebook.png"
+								alt="facebook"></a></li>
+					<li class="ms-3"><a class="text-body-secondary" href="#"><img src="./assets/images/instagram.png"
+								alt="instagram"></a></li>
+					<li class="ms-3"><a class="text-body-secondary" href="#"><img src="./assets/images/whatsapp.png"
+								alt="whatsapp"></a></li>
+				</ul>
+				<div class="col d-flex align-items-center justify-content-end ">
+					<span class="mb-3 mb-md-0 text-body-secondary fs-6 blanco">&copy;COHORT-51</span>
 				</div>
 			</div>
-
-		</div>
-	</main>
-	<footer class="d-flex justify-content-evenly align-items-center py-4 bg-dark">
-		<div class="container-fluid  foot">
-			<ul class="nav col justify-content-start list-unstyled d-flex ">
-				<li class="ms-3"><a class="text-body-secondary" href="#"><img src="./assets/images/facebook.png"
-							alt="facebook"></a></li>
-				<li class="ms-3"><a class="text-body-secondary" href="#"><img src="./assets/images/instagram.png"
-							alt="instagram"></a></li>
-				<li class="ms-3"><a class="text-body-secondary" href="#"><img src="./assets/images/whatsapp.png"
-							alt="whatsapp"></a></li>
-			</ul>
-			<div class="col d-flex align-items-center justify-content-end ">
-				<span class="mb-3 mb-md-0 text-body-secondary fs-6 blanco">&copy;COHORT-51</span>
-			</div>
-		</div>
-	</footer>
+		</footer>
+	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
 		</script>
-	<script type="module" src="./assets/script/main.js"></script>
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+	<script src="./assets/script/main.js"></script>
+
 </body>
 
 </html>

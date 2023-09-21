@@ -1,59 +1,74 @@
- import { 
-     crearEstructuraCartaspastup,
-     estructuraChecks,
-     imprimirChecks,
-     imprimirCartaspast,
-     filtrarChecks,
-     buscar,
-     filtrosCruzados,
-     filterEventspast
-         } from '../modules/functions.js'
+const { createApp } = Vue
 
-const contenedorcategorias = document.getElementById("contenedorcategoriaspast")
-const buscador = document.getElementById("buscadorpast");
-const btnbuscador = document.getElementById("btnbuscadorpast");
-const resultados = document.getElementById("resultadospast");
+  createApp({
+    
+    data() {
+      return {
+        eventos:[],
+        eventosPasados: [],
+        message: 'Hello Vue!',
+        arraycategorias: [],
+        inputSearch:"",
+        filtrados:[],
+        inputChecks:"",
+        checkeados: []
+        
+      }
+    },
 
-const contenedorCartas = document.getElementById("contenedorCartaspast")
-
-
-fetch('https://mindhub-xj03.onrender.com/api/amazing')
+    created(){
+        fetch('https://mindhub-xj03.onrender.com/api/amazing')
 
     .then(response =>{
-        console.log(response)
         return response.json()})
     .then(dataEventos => {
-      let listaEventos = dataEventos.events
-     
-      let pastEvents = filterEventspast(listaEventos)
+        const setcategorias = new Set(dataEventos.events.map(item => item.category))
+        this.arraycategorias = Array.from(setcategorias)
+        this.eventos = dataEventos.events 
+        this.filtrados = this.eventos
+        console.log(this.filtrados)
 
-        console.log(pastEvents)
-
-        const setcategorias = new Set(pastEvents.map(item => item.category))
-        const arraycategorias = Array.from(setcategorias)
-
-        imprimirChecks(contenedorcategorias, arraycategorias)
-        imprimirCartaspast(pastEvents, contenedorCartas)
-
-        btnbuscador.addEventListener("click", ()=>{
-            const arrayFiltrosCruzdos = filtrosCruzados (pastEvents, buscador)
-            imprimirCartaspast(arrayFiltrosCruzdos, contenedorCartas)
-        })
-        contenedorcategorias.addEventListener("change", ()=>{
- 
-            const arrayFiltrosCruzdos = filtrosCruzados (pastEvents, buscador)
-            console.log(arrayFiltrosCruzdos)
-            imprimirCartaspast(arrayFiltrosCruzdos, contenedorCartas)
-
-        })
-                    })
+        this.eventosPasados = this.filterEventspast(this.eventos)
+        console.log(this.eventosPasados)
+    })
+    
     .catch(err => console.log(err))
+    },
 
-const arrayCategoriasRepetidas = pastEvents.map((categoriasRepetidas) => categoriasRepetidas.category)
-const setcategorias = new Set(arrayCategoriasRepetidas)
-const categorias = Array.from(setcategorias)
+    methods:{
+
+        buscar(eventos, inputSearch){
+            return eventos.filter(evento => evento.name.toLowerCase().includes(inputSearch))
+        },
 
 
+        filtrarChecks (eventos, checkeados){
+            if (checkeados.length == 0){
+                return eventos
+            }
+            
+            return eventos.filter(evento => checkeados.includes(evento.category))
 
 
+        },
 
+        filtrosCruzados(){
+            const filtradosPorBuscar = this.buscar(this.eventosPasados, this.inputSearch)
+            const filtradosPorChecks = this.filtrarChecks(filtradosPorBuscar, this.checkeados)
+            this.filtrados = filtradosPorChecks
+        },
+
+        filterEventspast (listaEventos){
+            let aux = []
+            for (let evento of listaEventos){
+                if (evento.date.startsWith("2022") || evento.date.startsWith("2021") || evento.date.startsWith("2019")==true){
+                aux.push(evento)
+            }
+           } return aux
+        } 
+
+
+    }
+
+    
+  }).mount('#app')

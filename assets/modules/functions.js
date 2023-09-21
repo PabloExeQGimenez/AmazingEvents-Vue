@@ -1,44 +1,50 @@
-export function estructuraChecks (categoria){
-    return `<div class="cajita">
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" value="${categoria}"/>${categoria}
-                    </label>
-                </div>
-            </div>`
-}
+// export function estructuraChecks (categoria){
+//     return `<div class="cajita">
+//                 <div class="form-check">
+//                     <label class="form-check-label">
+//                         <input class="form-check-input" type="checkbox" value="${categoria}"/>${categoria}
+//                     </label>
+//                 </div>
+//             </div>`
+// }
 
-export function imprimirChecks (referenciahtml,arraycategorias){
-    let estructuratodaslasChecks = ""
-    for (let categoria of arraycategorias) {
-        estructuratodaslasChecks += estructuraChecks(categoria) 
-    }
-    referenciahtml.innerHTML = estructuratodaslasChecks
-}
+// export function imprimirChecks (referenciahtml,arraycategorias){
+//     let estructuratodaslasChecks = ""
+//     for (let categoria of arraycategorias) {
+//         estructuratodaslasChecks += estructuraChecks(categoria) 
+//     }
+//     referenciahtml.innerHTML = estructuratodaslasChecks
+// }
 
-export function crearEstructuraCartas (evento){
-    return `<div class="card h-100 mx-auto">
-    <img src="${evento.image}" class="card-img-top img-fluid" alt="${evento.name}">
-    <div class="card-body">
-      <h5 class="card-title text-center">${evento.name}</h5>
-      <p class="card-text text-center">${evento.description}</p>
-      <hr>
-      <div class=" d-flex justify-content-evenly">
-        <p class="card-text precio">$ ${evento.price}</p>
-        <p class="card-text ancor"><a class="ancor"
-            href="./assets/pages/details.html?parametro=${evento._id}">Details</a></p>
-      </div>
-    </div>
-    </div>`
-}
 
-export function imprimirCartas(array, referenciahtml2){
-    let estructura = ""
-    for (const evento of array) {    
-        estructura += crearEstructuraCartas(evento)
-    }
-    referenciahtml2.innerHTML = estructura 
-}
+// export function crearEstructuraCartas (evento){
+//     return `<div class="card h-100 mx-auto">
+//     <img src="${evento.image}" class="card-img-top img-fluid" alt="${evento.name}">
+//     <div class="card-body">
+//       <h5 class="card-title text-center">${evento.name}</h5>
+//       <p class="card-text text-center">${evento.description}</p>
+//       <hr>
+//       <div class=" d-flex justify-content-evenly">
+//         <p class="card-text precio">$ ${evento.price}</p>
+//         <p class="card-text ancor"><a class="ancor"
+//             href="./assets/pages/details.html?parametro=${evento._id}">Details</a></p>
+//       </div>
+//     </div>
+//     </div>`
+// }
+
+
+
+// export function imprimirCartas(array, referenciahtml2){
+//     let estructura = ""
+//     for (const evento of array) {    
+//         estructura += crearEstructuraCartas(evento)
+//     }
+//     referenciahtml2.innerHTML = estructura 
+// }
+
+
+
 
 export function filtrarChecks (array){
     const nodelistachecks = document.querySelectorAll("input[type='checkbox']:checked")
@@ -48,13 +54,13 @@ export function filtrarChecks (array){
     return eventosFiltradosChecks
 }
 
-export function buscar(array, inputbuscador) {
-    const terminoBusqueda = inputbuscador.value.toLowerCase()
-    // resultados.innerHTML = ""
-    const eventosFiltrados = array.filter(evento => evento.name.toLowerCase().includes(terminoBusqueda))
+// export function buscar(array, inputbuscador) {
+//     const terminoBusqueda = inputbuscador.value.toLowerCase()
+//     // resultados.innerHTML = ""
+//     const eventosFiltrados = array.filter(evento => evento.name.toLowerCase().includes(terminoBusqueda))
 
-    return eventosFiltrados
-}
+//     return eventosFiltrados
+// }
 
 export function filtrosCruzados (array, buscador){
     const arrayFiltradosPorChecks = filtrarChecks(array)
@@ -132,6 +138,10 @@ export function imprimirCartasup(array, referenciahtml2){
     }
     referenciahtml2.innerHTML = estructura 
 }
+
+
+
+
 
 
 

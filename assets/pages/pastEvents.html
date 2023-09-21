@@ -12,6 +12,7 @@
 </head>
 
 <body>
+	<div id="app">
 	<header>
 		<div class="contenedor-header justify-content-between">
 			<nav class="navbar navbar-expand-sm navbar-dark miheader bg-transparent p-3 ">
@@ -67,14 +68,23 @@
 		</div>
 		<!--Checks-->
 		<div class="container-check">
-			<div class="box1" id="contenedorcategoriaspast">
+			<div class="box" id="contenedorcategoriaspast" v-for:="categoria of arraycategorias">
+				<div class="cajita">
+					<div class="form-check">
 
+						<input class="form-check-input" type="checkbox" :value="categoria" @change="filtrosCruzados"
+							:id="`${categoria}`" v-model="checkeados" />{{categoria}}
+						<label class="form-check-label" :for="`${categoria}`">
+
+					</div>
+				</div>
 			</div>
-			<div class="box2">
+			<div class="box">
 				<form class="d-flex" role="search">
 					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-						id="buscadorpast">
-					<button class="btn btn-light btn-outline-success" type="button" id="btnbuscadorpast">
+						id="buscador" v-model="inputSearch">
+					<button class="btn btn-light btn-outline-success" type="button" id="btnbuscador"
+						v-on:click="filtrosCruzados">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
 							class="bi bi-search buscador" viewBox="0 0 16 16">
 							<path
@@ -85,12 +95,25 @@
 			</div>
 		</div>
 		<!--card -->
-		<div id="resultadospast" class="d-flex justify-content-evenly align-items-center py-4">
-
-		</div>
-		<div class="acomodador container d-flex align-items-center justify-content-center text-center w-100">
+		<div class="acomodador border container d-flex align-items-center justify-content-center text-center w-100">
 			<div class="container d-flex flex-column ">
-				<div class="row mt-5 mx-auto" id="contenedorCartaspast">
+				<div class="row mt-5 mx-auto" id="contenedorCartas">
+					<div class="card h-100 mx-auto" v-if="filtrados.length > 0" v-for="evento of filtrados">
+						<img :src="evento.image" class="card-img-top img-fluid" :alt="evento.name">
+						<div class="card-body">
+							<h5 class="card-title text-center">{{evento.name}}</h5>
+							<p class="card-text text-center">{{evento.description}}</p>
+							<hr>
+							<div class=" d-flex justify-content-evenly">
+								<p class="card-text precio">$ {{evento.price}}</p>
+								<p class="card-text ancor"><a class="ancor"
+										:href="'./details.html?parametro=' + evento._id">Details</a>
+								</p>
+							</div>
+						</div>
+
+					</div>
+					<h3 v-else>No event matches, please try again</h3>
 				</div>
 			</div>
 
@@ -110,11 +133,14 @@
 				<span class="mb-3 mb-md-0 text-body-secondary fs-6 blanco">&copy;COHORT-51</span>
 			</div>
 		</div>
+	
 	</footer>
+</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
 		</script>
-	<script type="module" src="../script/pastEvents.js"></script>
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+	<script src="../script/pastEvents.js"></script>
 </body>
 
 </html>
